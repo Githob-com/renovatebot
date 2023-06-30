@@ -10,10 +10,10 @@ on:
       - 'main'
 
 env:
-  NODE_VERSION: 18.14.1 # renovate: datasource=node depName=node
-  PYTHON_VERSION: 3.11.1 # renovate: datasource=github-releases depName=python packageName=containerbase/python-prebuild
+  NODE_VERSION: 18.16.1 # renovate: datasource=node depName=node
+  PYTHON_VERSION: 3.11.4 # renovate: datasource=github-releases depName=python packageName=containerbase/python-prebuild
   # Don't use PIPENV_VERSION:  https://github.com/pypa/pipenv/issues/3633#issuecomment-478250721
-  RENOVATE_PIPENV_VERSION: 2022.12.19 # renovate: datasource=pypi depName=pipenv
+  RENOVATE_PIPENV_VERSION: 2023.6.26 # renovate: datasource=pypi depName=pipenv
 
 jobs:
   build:
@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
 
       - name: Checkout submodules
         shell: bash
@@ -38,7 +38,7 @@ jobs:
           cache-dependency-path: '**/yarn.lock'
 
       - name: Set up Python ${{ env.PYTHON_VERSION }}
-        uses: actions/setup-python@d27e3f3d7c64b4bbf8e4abfb9b63b83e846e0435 # v4.5.0
+        uses: actions/setup-python@bd6b4b6205c4dbad673328db7b31b7fab9e241c0 # v4.6.1
         with:
           python-version: ${{ env.PYTHON_VERSION }}
           cache: 'pipenv'
@@ -60,7 +60,7 @@ jobs:
         run: yarn prettier
 
       - name: Run shellcheck
-        uses: reviewdog/action-shellcheck@f52d78284b4941028952125a10c76676c3d456eb # v1.17.0
+        uses: reviewdog/action-shellcheck@50e5e1e2284575f23a1e409d9c0804cdfc4f6e31 # v1.18.1
         with:
           reporter: github-pr-review
           filter_mode: nofilter
@@ -87,7 +87,7 @@ jobs:
           if-no-files-found: error
 
       - name: Cypress run
-        uses: cypress-io/github-action@327178c8042fbb3be13870105eece3c8abf348c9 # v5.0.9
+        uses: cypress-io/github-action@d69252d52b9a31bad4f418f05ba2bc83687a02eb # v5.8.3
         with:
           start: make serve
           wait-on: 'http://127.0.0.1:8000/'
