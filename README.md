@@ -1,4 +1,4 @@
-![kickym0802/docs]
+}kickym0802{
 # docs.renovatebot.com
 
 This repository is used to build Renovate's docs site (https://docs.renovatebot.com).
